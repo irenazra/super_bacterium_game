@@ -77,7 +77,6 @@ impl Map {
         let mut enemy_counter = enemy_number;
     
         while enemy_counter > 0 {
-            println!("{}", "Enemy while loop");
             let random_row : usize = thread_rng().gen_range(0, self.board[0].len());
             let random_col : usize = thread_rng().gen_range(0, self.board[0].len());
     
@@ -92,7 +91,6 @@ impl Map {
         let mut food_counter = food_number;
     
         while food_counter > 0 {
-            println!("{}", "Food while loop");
             let r_row : usize = thread_rng().gen_range(0, self.board[0].len());
             let r_col : usize = thread_rng().gen_range(0, self.board[0].len());
     
@@ -151,8 +149,6 @@ impl Map {
         }
 
         self.board[row as usize][col as usize] = 1;
-        println!("Prev was {}", prev);
-        //println!("");
         self.board[current_row as usize][current_col as usize] = prev;
         self.col = col;
         self.row = row;
@@ -328,10 +324,8 @@ fn main() {
     // ******CREATING A MAP THROUGH RANDOM BOARD INITIALIZATION STARTS*****
     //-----------------------------------------------------------------------
 
-    let mut map = Map{board: vec![(vec![0;5]);5], records: vec![], damage: 0, energy:10, row:0 as i32, col:0 as i32};
-    println!("{}", "Before");
-    map.place_elements(5,5,4,4);
-    println!("{}", "After");
+    let mut map = Map{board: vec![(vec![0;8]);8], records: vec![], damage: 0, energy:10, row:0 as i32, col:0 as i32};
+    map.place_elements(20,20,7,7);
 
      //-----------------------------------------------------------------------
      // ******CREATING A MAP THROUGH RANDOM BOARD INITIALIZATION ENDS****
@@ -342,15 +336,16 @@ fn main() {
 
     let mut input = String::new();
 
+    println!("{}","");
     println!("{}", "STATS");
     println!("Energy : {}", map.energy);
     println!("Damage :  {}", map.damage);
+    println!("{}","");
 
 
 
 
     while (map.energy > 0) & (map.damage < 5) {
-        println!("In the while loop!");
 
         map.energy -= 1;
         input.clear();
@@ -384,9 +379,11 @@ fn main() {
             "UNDO" => {println!("{}", "Taking a step back!");
                         map.rewind_one_move();
                         map.energy += 1;
+                        println!("{}","");
                         println!("{}", "STATS");
                         println!("Energy : {}", map.energy);
                         println!("Damage :  {}", map.damage);
+                        println!("{}","");
                         continue;},
             "SAVE" => {println!("{}", "Trying to save!");
                         break;},
@@ -410,12 +407,19 @@ fn main() {
 
             
             match former_occupant {
-                0 => {cfg_empty_print();}
-                2 => { cfg_enemy_print();
-                        map.damage += 1;}
-                3 => {cfg_food_print();
-                        map.energy += 1;}
+                0 => {println!("{}","");
+                     cfg_empty_print();
+                     println!("{}","");}
+                2 => { println!("{}","");
+                    cfg_enemy_print();
+                    println!("{}","");
+                    map.damage += 1;}
+                3 => {println!("{}","");
+                     cfg_food_print();
+                     println!("{}","");
+                    map.energy += 1;}
                 4 => {println!("{}", "YOU WON!");
+                    
                         map.print_board();
                         break;}
                 _ => { println!("{}", "Something went wrong :)");}
@@ -432,6 +436,7 @@ fn main() {
         println!("{}", "STATS");
         println!("Energy : {}", map.energy);
         println!("Damage :  {}", map.damage);
+        println!("{}","");
 
         if (map.energy == 0) {
             println!("{}", "You starved: YOU LOST");
