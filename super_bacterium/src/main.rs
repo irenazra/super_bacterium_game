@@ -1,12 +1,7 @@
 use rand::{thread_rng, Rng};
 use std::io;
 use std::collections::HashSet;
-use std::env;
-use std::fs;
-use std::str::FromStr;
-use std::fs::File;
-use std::io::{Write, BufReader, BufRead, Error};
-use std::io::prelude::*;
+use std::io::{Write};
 
 
 
@@ -30,7 +25,7 @@ struct Map {
 impl Map {
     fn print_board(&self) {
         let width = self.board[0].len();
-        let row_line = "-".repeat((width * 7));
+        let row_line = "-".repeat(width * 7);
 
         self.clone().board.into_iter().for_each(|it| {
             let mut row_string:String = "|".to_string();
@@ -324,7 +319,7 @@ fn main() {
     // ******CREATING A MAP THROUGH RANDOM BOARD INITIALIZATION STARTS*****
     //-----------------------------------------------------------------------
 
-    let mut map = Map{board: vec![(vec![0;8]);8], records: vec![], damage: 0, energy:10, row:0 as i32, col:0 as i32};
+    let mut map = Map{board: vec![vec![0;8];8], records: vec![], damage: 0, energy:10, row:0 as i32, col:0 as i32};
     map.place_elements(20,20,7,7);
 
      //-----------------------------------------------------------------------
@@ -360,12 +355,12 @@ fn main() {
         io::stdin().read_line(&mut input).unwrap();
         let input = input.trim();
         //Turn all input into uppercase to make sure multiple different ways to writing answers will be accepted
-        let mut input = input.to_uppercase();
+        let input = input.to_uppercase();
 
         let mut new_row:i32 = map.row;
         let mut new_col:i32 = map.col;
 
-        let mut the_move = -1;
+        let the_move;
         match input.as_str() {
             "UP" => {new_row = new_row - 1;
                     the_move = 0 },
@@ -404,8 +399,6 @@ fn main() {
             // 2 is enemy
             // 3 is food
             // 4 exit
-
-            
             match former_occupant {
                 0 => {println!("{}","");
                      cfg_empty_print();
@@ -438,11 +431,11 @@ fn main() {
         println!("Damage :  {}", map.damage);
         println!("{}","");
 
-        if (map.energy == 0) {
+        if map.energy == 0 {
             println!("{}", "You starved: YOU LOST");
         } 
 
-        if (map.damage == 5) {
+        if map.damage == 5 {
             println!("{}", "You received way too much damage: YOU LOST");
         }
 
