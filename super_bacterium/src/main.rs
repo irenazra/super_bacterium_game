@@ -236,12 +236,23 @@ fn cfg_enemy_print(){
 
 
 fn main() {
+
+    println!("{}","");
+    println!("{}", "GAME RULES");
+    println!("{}","");
+    print!("You are an ambitious bacterium, and there is nothing in the world that you want more than spreading everywhere!");
+    print!("To reach other petridishes, try to reach the exit as you travel through different spaces in your starting petridish. Be careful! You can run out of energy or acquire way too much damage!");
+    print!("You can pick up food as you travel the different segments, but be aware of other bacteria and disinfectant spills!");
+    println!("{}","");
+
+
+
     //----------------------------------------------
     //    BEGIN: CREATING A MAP THROUGH A FILE
     //----------------------------------------------
     
     // let contents = fs::read_to_string("test.txt")
-    //     .expect("Something went wrong reading the file");
+    //     .expect("Error! I cannot read the file :(");
 
     // // Create an iterator 
     // let mut iterator = contents.split_whitespace();
